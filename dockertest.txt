@@ -1,0 +1,92 @@
+1. 
+
+Docker basic question
+
+First change the image tag to my name 
+
+docker image tag alpine:latest alpine:archit
+
+Now create a container with name architc1q1 and saving output in question1.txt 
+
+docker run -it --name architc1q1 alpine:archit date +%H:%M:%S >> question1.txt 
+
+saving the output to the question1.txt 
+ 
+docker rm architc1q1
+docker run -it --name architc1q1 alpine:archit date +%H:%M:%S >> question1.txt
+
+--------------------------------------------------------------------------------------------------------------------
+
+2. 
+
+Build and push docker image to docker Hub 
+
+First creating a docker image with git link  and with name adhoc:archit
+
+docker build -t adhoc:archit https://github.com/redashu/summer2020dockertest.git
+
+retagging it with docker hub username so that it can be pushed on docker hub 
+
+docker tag adhoc:archit archit-55/adhoc:archit
+
+
+docker login
+docker push archit-55/adhoc:archit
+docker logout 
+
+------------------------------------------------------------------------------------------------------------------
+
+3. 
+
+Deploy web application
+
+Creating container with name architc3q3 as expoesd port is 80 and i am allowing port 1478 using the image name dockerashu/ckad:v2
+docker run -itd --name ayushc3q3 -p 1478:80 dockerashu/ckad:v2
+
+and creating a text file named question3.txt as there are 7 keywords of docker on webapp.
+
+------------------------------------------------------------------------------------------------------------------
+
+4. 
+
+create a dockerfile and build docker image push it to docker hub 
+
+First clone the git repo
+git clone https://github.com/redashu/beginner-html-site-styled
+mv beginner-html-site-styled/ webapp
+
+Now creating a Dockerfile 
+```
+FROM centos
+MAINTAINER architagr1@gmail.com
+RUN yum install httpd -y
+COPY webapp /var/www/html/
+EXPOSE 80
+ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
+```
+
+Now creating .dockerignore file 
+```
+Dockerfile
+.git 
+LICENSE
+*.md 
+``` 
+Now building image 
+docker build -t archit:q4 .
+
+now checking the image and building an container 
+docker run -itd --name architc4q4 -p 1598:80 archit:q4 
+
+now pushing the docker image to docker hub 
+docker tag ayush:q4 archit-55/archit:q4 
+docker login 
+docker push archit-55/archit:q4
+---------------------------------------------------------------------------------------------------------------------------
+
+5. 
+
+Docker volume 
+Creating a Docker volume  
+docker volume create archit55
+docker run -it --name archit55q5 -v /etc/passwd:/user.txt -v archit55:/adhocvol alpine wc -l user.txt>>/adhocvol/usercount.txt 
